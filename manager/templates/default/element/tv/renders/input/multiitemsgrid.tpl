@@ -73,7 +73,8 @@ MODx.grid.multiTVgrid = function(config) {
                         // ************************************
                       }
                    }) 
-
+		this.syncSize();
+		this.setWidth('772px');
                    // load the grid store
                   //  after the grid has been rendered
                   //store.load();
