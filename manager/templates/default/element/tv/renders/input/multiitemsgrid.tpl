@@ -113,7 +113,7 @@ Ext.extend(MODx.grid.multiTVgrid,MODx.grid.LocalGrid,{
 		this.getStore().sortInfo = null;
 		this.getStore().loadData(items);
 		this.syncSize();
-
+		this.setWidth('95%');
 	/*
     if (items.length>0){
         for (var i = 0; i < items.length; i++) {
