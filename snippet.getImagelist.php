@@ -65,7 +65,7 @@ $items = $modx->fromJSON($outputvalue);
 $output = '';
 if (substr($tpl, 0, 6) == "@FILE:")
 {
-    $template = get_file_contents($modx->config['base_path'].substr($tpl, 6));
+    $template = file_get_contents($modx->config['base_path'].substr($tpl, 6));
 } else if (substr($tpl, 0, 6) == "@CODE:")
 {
     $template = substr($tpl, 6);
