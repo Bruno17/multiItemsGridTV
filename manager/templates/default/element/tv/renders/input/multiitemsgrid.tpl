@@ -104,7 +104,7 @@ Ext.extend(MODx.grid.multiTVgrid,MODx.grid.LocalGrid,{
 			return '<img style="height:60px" src="' + val + '"/>' ;
 		}        
 		if (val != ''){
-			return '<img src="{/literal}{$_config.connectors_url}{literal}system/phpthumb.php?h=60&src=' + val + '" alt="" />';
+			return '<img src="{/literal}{$_config.connectors_url}{literal}system/phpthumb.php?h=60&src=' + val.replace('{/literal}{$filemanager_url}{literal}', '') + '" alt="" />';
 		}
 		return val;
 	}
