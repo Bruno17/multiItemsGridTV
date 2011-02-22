@@ -142,9 +142,32 @@ Ext.extend(MODx.grid.multiTVgrid,MODx.grid.LocalGrid,{
         return cs;
     }
 	,addItem: function() {
-		var items=Ext.util.JSON.decode('{/literal}{$newitem}{literal}')
-		this.getStore().loadData(items,true);
-				
+        var items=Ext.util.JSON.decode('{/literal}{$newitem}{literal}');
+        var s = this.getStore();
+		s.loadData(items,true);
+        var newIndex = s.getCount()-1;
+        this.menu.recordIndex = newIndex;
+        var rec = s.getAt(newIndex);
+		var win_xtype = 'modx-window-tv-item-update';
+		if (this.windows[win_xtype]){
+			this.windows[win_xtype].fp.autoLoad.params.tv_id='{/literal}{$tv->id}{literal}';
+			this.windows[win_xtype].fp.autoLoad.params.tv_name='{/literal}{$tv->name}{literal}';
+		    this.windows[win_xtype].fp.autoLoad.params.itemid=newIndex;
+			this.windows[win_xtype].grid=this;
+		}
+		this.loadWindow(btn,e,{
+            xtype: win_xtype
+            ,record: rec
+			,grid: this
+			,baseParams : {
+				record_json:Ext.util.JSON.encode(rec.json),
+			    action: 'mgr/fields',
+				tv_id: '{/literal}{$tv->id}{literal}',
+				tv_name: '{/literal}{$tv->name}{literal}',
+				'class_key': 'modDocument',
+				itemid : newIndex	
+			}
+        });	
 	}	
 	,remove: function() {
         var _this=this;
