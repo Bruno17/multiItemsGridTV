@@ -141,7 +141,7 @@ Ext.extend(MODx.grid.multiTVgrid,MODx.grid.LocalGrid,{
         cs = Ext.util.Format.substr(cs,1,cs.length-1);
         return cs;
     }
-	,addItem: function() {
+	,addItem: function(btn,e) {
         var items=Ext.util.JSON.decode('{/literal}{$newitem}{literal}');
         var s = this.getStore();
 		s.loadData(items,true);
