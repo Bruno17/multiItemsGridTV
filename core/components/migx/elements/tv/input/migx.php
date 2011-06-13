@@ -81,7 +81,7 @@ if (is_array($columns) && count($columns) > 0) {
         $field['mapping'] = $column['dataIndex'];
         $fields[] = $field;
         $col['dataIndex'] = $column['dataIndex'];
-        $col['header'] = htmlentities($column['header'], ENT_QUOTES);
+        $col['header'] = htmlentities($column['header'], ENT_QUOTES, $modx->getOption('modx_charset'));
         $col['sortable'] = $column['sortable'] == 'true' ? true : false;
         $col['width'] = $column['width'];
         $col['renderer'] = $column['renderer'];

@@ -94,9 +94,9 @@ foreach ($formtabs as $tabid => $tab) {
             $record[$field['field']];
 
         $tv->set('value', $fieldvalue);
-        $tv->set('caption', htmlentities($field['caption'], ENT_QUOTES));
+        $tv->set('caption', htmlentities($field['caption'], ENT_QUOTES, $modx->getOption('modx_charset')));
         if (!empty($field['description'])) {
-            $tv->set('description', htmlentities($field['description'], ENT_QUOTES));
+            $tv->set('description', htmlentities($field['description'], ENT_QUOTES, $modx->getOption('modx_charset')));
         }
         /*generate unique tvid, must be numeric*/
         /*todo: find a better solution*/
