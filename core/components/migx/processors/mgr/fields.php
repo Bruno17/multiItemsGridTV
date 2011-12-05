@@ -132,11 +132,15 @@ foreach ($formtabs as $tabid => $tab) {
         $allfields[] = $field;
 
         $mediasource = $migx->getFieldSource($field,$tv);
-
-
-        //$modx->setOption('default_media_source',$mediasource->get('id'));
-        //mediasource über formtabs steuerbar machen?
-        //{"mediasources":[{"web":"1"}]}
+        
+        /*
+        $properties = $mediasource->getProperties();
+        $properties['basePath']['value']=$properties['basePath']['value'].'images/';
+        $properties['baseUrl']['value']=$properties['baseUrl']['value'].'images/';
+        $mediasource->setProperties($properties['basePath']);
+        $properties = $mediasource->getProperties();
+        print_r($properties);
+        */
 
         $tv->set('id', $field['tv_id']);
 

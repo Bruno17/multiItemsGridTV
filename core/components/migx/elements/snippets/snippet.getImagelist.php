@@ -180,6 +180,8 @@ if (count($items) > 0) {
                     if ($mediasource = $migx->getFieldSource($inputTV, $tv)) {
                         $mTypes = explode(',', $mTypes);
                         if (!empty($value) && in_array($tv->get('type'), $mTypes)) {
+                            //setPlaceholders for sourcePath replacements
+                            $modx->setPlaceholder('mediasource.res_id',$docid);
                             $value = $mediasource->prepareOutputUrl($value);
                         }
                     }

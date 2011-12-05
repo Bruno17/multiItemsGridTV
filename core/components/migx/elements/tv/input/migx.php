@@ -120,6 +120,7 @@ if (is_array($columns) && count($columns) > 0) {
             /* pasted end*/
             
             $mediasource = $migx->getFieldSource($inputTV,$tv);
+           
             $pathconfigs[$key] = '&source='.$mediasource->get('id');
             //$pathconfigs[$key] = '&basePath='.$params['basePath'].'&basePathRelative='.$params['basePathRelative'].'&baseUrl='.$params['baseUrl'].'&baseUrlRelative='.$params['baseUrlRelative'];
 

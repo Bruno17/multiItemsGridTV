@@ -116,7 +116,7 @@ Ext.extend(MODx.grid.multiTVgrid,MODx.grid.LocalGrid,{
 		if (val != ''){
 			//return '<img src="{/literal}{$_config.connectors_url}{literal}system/phpthumb.php?h=60&src=' + val + '" alt="" />';
 			
-			return '<img src="'+MODx.config.connectors_url+'{/literal}system/phpthumb.php?h=60&src='+val+'&wctx={$ctx}'+source+'{literal}" alt="" />';
+			return '<img src="'+MODx.config.connectors_url+'system/phpthumb.php?h=60&src='+val+'{/literal}&wctx={$ctx}&res_id={$resource.id}{literal}'+source+'" alt="" />';
 		
 		}
 		return val;
