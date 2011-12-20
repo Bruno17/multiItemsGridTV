@@ -258,6 +258,7 @@ if (count($items) > 0) {
     foreach ($items as $key => $item) {
 
         $fields = array();
+		$fields['docid'] = $docid;
         foreach ($item as $field => $value) {
             $value = is_array($value) ? implode('||', $value) : $value; //handle arrays (checkboxes, multiselects)
             if ($processTVs && isset($inputTvs[$field])) {
