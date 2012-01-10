@@ -47,9 +47,8 @@ if (is_array($formtabs)) {
 
 
 /* get base path based on either TV param or filemanager_path */
-$modx->getService('fileHandler', 'modFileHandler', '', array('context' => $this->xpdo->context->get('key')));
+$modx->getService('fileHandler','modFileHandler', '', array('context' => $this->xpdo->context->get('key')));
 
-/* pasted from processors.element.tv.renders.mgr.input*/
 /* get working context */
 $wctx = isset($_GET['wctx']) && !empty($_GET['wctx']) ? $modx->sanitizeString($_GET['wctx']) : '';
 if (!empty($wctx)) {
@@ -57,16 +56,23 @@ if (!empty($wctx)) {
     if (!$workingContext) {
         return $modx->error->failure($modx->lexicon('permission_denied'));
     }
-    $wctx = $workingContext->get('key');
+    $params['wctx'] = $workingContext->get('key');
+    $modx->fileHandler->context =& $workingContext;
 } else {
-    $wctx = $modx->context->get('key');
+    $params['wctx'] = $modx->context->get('key');
+    $workingContext =& $modx->context;
 }
 
 /* get base path based on either TV param or filemanager_path */
 
-$replacePaths = array('[[++base_path]]' => $modx->getOption('base_path', null, MODX_BASE_PATH), '[[++core_path]]' => $modx->getOption('core_path', null, MODX_CORE_PATH), '[[++manager_path]]' => $modx->
-    getOption('manager_path', null, MODX_MANAGER_PATH), '[[++assets_path]]' => $modx->getOption('assets_path', null, MODX_ASSETS_PATH), '[[++base_url]]' => $modx->getOption('base_url', null, MODX_BASE_URL),
-    '[[++manager_url]]' => $modx->getOption('manager_url', null, MODX_MANAGER_URL), '[[++assets_url]]' => $modx->getOption('assets_url', null, MODX_ASSETS_URL), );
+$replacePaths['[[++base_path]]']=$modx->getOption('base_path', null, MODX_BASE_PATH);
+$replacePaths['[[++core_path]]']=$modx->getOption('core_path', null, MODX_CORE_PATH);
+$replacePaths['[[++manager_path]]']=$modx->getOption('manager_path', null, MODX_MANAGER_PATH);
+$replacePaths['[[++assets_path]]']=$modx->getOption('assets_path', null, MODX_ASSETS_PATH);
+$replacePaths['[[++base_url]]']=$modx->getOption('base_url', null, MODX_BASE_URL);
+$replacePaths['[[++manager_url]]']=$modx->getOption('manager_url', null, MODX_MANAGER_URL);
+$replacePaths['[[++assets_url]]']=$modx->getOption('assets_url', null, MODX_ASSETS_URL);
+
 $replaceKeys = array_keys($replacePaths);
 $replaceValues = array_values($replacePaths);
 
@@ -84,7 +90,7 @@ if (is_array($columns) && count($columns) > 0) {
         $field['mapping'] = $column['dataIndex'];
         $fields[] = $field;
         $col['dataIndex'] = $column['dataIndex'];
-        $col['header'] = htmlentities($column['header'], ENT_QUOTES);
+        $col['header'] = htmlentities($column['header'], ENT_QUOTES, $modx->getOption('modx_charset'));
         $col['sortable'] = $column['sortable'] == 'true' ? true : false;
         $col['width'] = $column['width'];
         $col['renderer'] = $column['renderer'];
@@ -102,6 +108,7 @@ if (is_array($columns) && count($columns) > 0) {
                     $params['basePath'] = $base_path.$properties['basePath'];
                 }
             }
+
             if (empty($params['basePath'])) {
                 $params['basePath'] = $modx->fileHandler->getBasePath();
                 $params['basePath'] = str_replace($replaceKeys, $replaceValues, $params['basePath']);
@@ -137,6 +144,8 @@ if (is_array($columns) && count($columns) > 0) {
         }
     }
 }
+
+
 
 $newitem[] = $item;
 $lang = $this->xpdo->lexicon->fetch();

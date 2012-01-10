@@ -223,30 +223,39 @@ if (is_array($where) && count($where) > 0) {
     $items = $tempitems;
 }
 
+
 if (count($items) > 0) {
     $items = $offset > 0 ? array_slice($items, $offset) : $items;
     $count = count($items);
     $limit = $limit == 0 || $limit > $count ? $count : $limit;
     $preselectLimit = $preselectLimit > $count ? $count : $preselectLimit;
     //preselect important items
+    $preitems = array();
     if ($randomize && $preselectLimit > 0) {
-        $tempitems = array();
         for ($i = 0; $i < $preselectLimit; $i++) {
-            $tempitems[] = $items[$i];
+            $preitems[] = $items[$i];
             unset($items[$i]);
         }
-        shuffle($items);
-        $items = array_merge($tempitems, $items);
+        $limit = $limit - count($preitems);
     }
+
+    //shuffle items
     if ($randomize) {
         shuffle($items);
     }
+
+    //limit items
     $tempitems = array();
     for ($i = 0; $i < $limit; $i++) {
         $tempitems[] = $items[$i];
     }
     $items = $tempitems;
 
+    //add preselected items and schuffle again
+    if ($randomize && $preselectLimit > 0) {
+        $items = array_merge($preitems, $items);
+        shuffle($items);                
+    }    
 
     $properties = array();
     foreach ($scriptProperties as $property => $value) {
@@ -302,7 +311,7 @@ if (count($items) > 0) {
                 $chunk = $modx->newObject('modChunk');
                 $chunk->setCacheable(false);
                 $chunk->setContent($template[$rowtpl]);
-                if (!empty($placeholdersKeyField)) {
+                if (!empty($placeholdersKeyField) && isset($fields[$placeholdersKeyField])) {
                     $output[$fields[$placeholdersKeyField]] = $chunk->process($fields);
                 } else {
                     $output[] = $chunk->process($fields);
