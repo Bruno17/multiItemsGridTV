@@ -62,7 +62,7 @@ if (!empty($wctx)) {
     $params['wctx'] = $modx->context->get('key');
     $workingContext =& $modx->context;
 }
-
+$wctx = $params['wctx'];
 /* get base path based on either TV param or filemanager_path */
 
 $replacePaths['[[++base_path]]']=$modx->getOption('base_path', null, MODX_BASE_PATH);
