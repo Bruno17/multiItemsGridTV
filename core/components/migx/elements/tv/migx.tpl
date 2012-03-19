@@ -164,7 +164,7 @@ Ext.extend(MODx.grid.multiTVgrid,MODx.grid.LocalGrid,{
         for(i = 0; i <  items.length; i++) {
  		    item = items[i];
             if (item.MIGX_id){
-                if (item.MIGX_id > this.autoinc){
+                if (parseInt(item.MIGX_id)  > this.autoinc){
                     this.autoinc = item.MIGX_id;
                 }
             }else{
