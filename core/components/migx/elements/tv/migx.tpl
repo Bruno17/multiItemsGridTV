@@ -215,6 +215,7 @@ Ext.extend(MODx.grid.multiTVgrid,MODx.grid.LocalGrid,{
       this.loadWin(btn,e,this.menu.recordIndex,'u');
     }
 	,duplicate: function(btn,e) {
+      MODx.fireResourceFormChange();
       this.loadWin(btn,e,this.menu.recordIndex,'d');
     }    
 	,loadWin: function(btn,e,index,action) {
